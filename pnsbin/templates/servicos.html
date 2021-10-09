@@ -1,0 +1,55 @@
+<html>
+<head>
+	<link rel="stylesheet" href="css\tbl.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous">
+</head>
+<body>
+	<h1><b>Lista de Serviços</b></h1>
+	<div class="table-responsive">
+		<table id="tabServ" class="rtable">
+	</div>
+
+	<script type="text/javascript">
+		var servicos;
+		window.onload=()=>{
+			console.log("HERE")
+			const tabServ=document.getElementById("tabServ")
+
+			const renderServs=async()=>{
+				console.log("FUNCTION")
+				let strHtml=`
+				<table id="tabServ" class="rtable">
+  			<thead>
+    			<tr>
+      				<th>ID</th>
+      				<th>Descricao</th>
+ 					<th></th>
+     			</tr>
+    		</thead>
+    		<tbody>`
+   		const response=await fetch('http://localhost:8080/servicos');
+
+   		servicos = await response.json()
+
+   		for(const servico of servicos){
+   			console.log("LOOP")
+   				strHtml+=`<tr><td>${servico.idServiço}</td>
+   				<td>${servico.descricao}</td>
+   				<td><button onclick="deleteServico(${servico.idServiço})">DELETE</button></td></tr>`
+			}
+			strHtml+='</tbody></table>'
+			tabServ.innerHTML=strHtml
+   		}
+
+   		renderServs();
+		}
+
+		const deleteServico=async(id)=>{
+			const response=await fetch(`http://localhost:8080/servicos/${id}`,{method: "DELETE"});
+		}
+	</script>
+</body>
+</html>

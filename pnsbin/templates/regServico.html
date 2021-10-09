@@ -1,0 +1,68 @@
+<html>
+<head>
+	<link rel="stylesheet" href="css\tbl.css">
+	<link rel="stylesheet" type="text/css" href="css/form.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous">
+</head>
+<body>
+	<h1><b>Registar Serviço</b></h1>
+	<br>
+	<form action="http://localhost:8080/regServico" method="POST">
+		<h3>Seleccionar Serviço<h3>
+		<select name="funcao" id="funcao">
+			<option value="geral">Geral</option>
+			<option value="reparação it">Reparação equipamentos</option>
+			<option value="instalação">Instalação de software</option>
+		</select>
+		<br>
+		<div id="myForm"></div>
+		
+	</form>
+	<br>
+	<button onclick="validateSelection()">SUBMIT</button>
+	<script type="text/javascript">
+
+		function validateSelection(){
+			console.log("VALIDATION!")
+			var checkboxes=document.getElementsByName("favTecnico");
+			console.log(checkboxes.length)
+			var numOfCheckedItems=0
+
+			for(var i=0;i<checkboxes.length;i++){
+				if(checkboxes[i].checked)
+					numOfCheckedItems++;
+			}
+			if(numOfCheckedItems>2)
+				alert("Só pode seleccionar um técnico!");
+			else{
+				console.log("VALIDATE")
+			}
+		}
+
+		window.onload=()=>{
+			const renderTecs=async()=>{
+
+			const myForm=document.getElementById("myForm")
+
+			let strHtml='<form id="myForm"><h3>Escolha um técnico</h3>'
+
+			const response = await fetch('http://localhost:8080/tecnicos')
+
+			const tecnicos = await response.json()
+
+			for(const tecnico of tecnicos){
+
+				strHtml+=`<h4>${tecnico.nome}</h4><input type="checkbox" id="idTecnico" name="idTecnico" value=${tecnico.idTecnico}>`
+
+			}
+
+			myForm.innerHTML=strHtml
+		}
+		renderTecs();
+	}
+	</script>
+</body>
+</html>

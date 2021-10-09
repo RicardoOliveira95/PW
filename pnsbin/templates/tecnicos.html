@@ -1,0 +1,50 @@
+<html>
+<head>
+	<link rel="stylesheet" href="css\tbl.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous">
+</head>
+<body>
+	<h1><b>Lista de Técnicos</b></h1>
+	<div class="table-responsive">
+		<table id="tabTech" class="rtable">
+	</div>
+
+	<script type="text/javascript">
+		window.onload=()=>{
+			console.log("HERE")
+			const tabTech=document.getElementById("tabTech")
+
+			const renderTecs=async()=>{
+				console.log("FUNCTION")
+				let strHtml=`
+				<table id="tabTech" class="rtable">
+  			<thead>
+    			<tr>
+      				<th>ID</th>
+      				<th>Nome</th>
+     			</tr>
+    		</thead>
+    		<tbody>`
+   		const response=await fetch('http://localhost:8080/tecnicos');
+
+   		const tecnicos = await response.json()
+
+   		if(tecnicos==null)
+   			console.log("NULL")
+   		for(const tecnico of tecnicos){
+   			console.log("LOOP")
+   				strHtml+=`<tr><td>${tecnico.idTecnico}</td>
+   				<td>${tecnico.nome}</td></tr>`
+			}
+			strHtml+='</tbody></table>'
+			tabTech.innerHTML=strHtml
+   		}
+
+   		renderTecs();
+		}
+	</script>
+</body>
+</html>
