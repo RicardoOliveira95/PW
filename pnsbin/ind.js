@@ -54,7 +54,7 @@ app.use(function(req,res,next){
 })
 
 app.get('/', (req, res) => {
-	res.sendFile(dirname+'/greeting.html')
+	res.sendFile(dirname+'/index.html')
 });
 
 app.get('/login',(req,res)=>{
