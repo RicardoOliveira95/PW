@@ -9,7 +9,7 @@ app.use(bp.urlencoded({extended: true}))
 //app.use('/assets', express.static('assets'))
 const dirname='C:/Users/Utilizador/Desktop/UM/PW/pnsbin/templates'
 
-/*const permittedLinker = ['localhost', '127.0.0.1', 'http://pensbin21.freecluster.eu', 'http://pnsbin2.tk', process.env.IP]; // who can link here?
+const permittedLinker = ['localhost', '127.0.0.1','https://confident-austin-4f4f59.netlify.app' ,'http://pensbin21.freecluster.eu', 'http://pnsbin2.tk', process.env.IP]; // who can link here?
 app.use(function(req, res, next) {
   let i = 0,
     notFound = 1,
@@ -30,7 +30,7 @@ app.use(function(req, res, next) {
   else {
     next(); // access is permitted, go to the next step in the ordinary routing
   }
-});*/
+});
 
 app.use(session({
 	secret: 'pnsbn',
